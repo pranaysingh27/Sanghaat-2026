@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#111111">
+<title>SANGHAAT 2026 | The Money Heist Experience</title>
+<style>
+:root{color-scheme:dark;--red:#e11d2e;--bg:#090909;--paper:#171717}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:#f5f5f5;font-family:Arial,Helvetica,sans-serif}
+header{position:sticky;top:0;z-index:5;background:rgba(8,8,8,.96);border-bottom:1px solid #382024;padding:14px 16px;backdrop-filter:blur(10px)}
+.brand{font-weight:900;letter-spacing:2px;font-size:20px}.brand span{color:var(--red)}
+.sub{font-size:12px;color:#bbb;margin-top:4px}
+.controls{display:flex;gap:10px;align-items:center;margin-top:12px}
+button{background:var(--red);color:white;border:0;border-radius:8px;padding:11px 14px;font-weight:800;font-size:14px}
+#status{font-size:12px;color:#ccc}
+main{max-width:760px;margin:0 auto;padding:14px 10px 30px}
+.intro{text-align:center;padding:24px 10px 18px}
+.intro h1{font-size:clamp(28px,8vw,48px);line-height:1;margin:0 0 10px;letter-spacing:1px}
+.intro h1 span{color:var(--red)}
+.intro p{color:#bbb;font-size:13px;letter-spacing:1px}
+.page{margin:14px auto 24px;background:#141414;border:1px solid #333;border-radius:10px;overflow:hidden;box-shadow:0 12px 28px #0008}
+.page img{display:block;width:100%;height:auto}
+.page-label{font-size:11px;color:#aaa;padding:8px 10px;border-top:1px solid #292929}
+footer{text-align:center;color:#888;font-size:11px;padding:20px}
+@media(min-width:650px){header{padding:16px 24px}main{padding:20px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">SANGHAAT <span>2026</span></div>
+  <div class="sub">THE MONEY HEIST EXPERIENCE · KAMALADEVI COLLEGE OF ARTS AND COMMERCE</div>
+  <div class="controls">
+    <button id="play">▶ PLAY THE HEIST</button>
+    <div id="status">Tap to start music</div>
+  </div>
+  <audio id="music" src="bella-ciao.mp3" loop preload="none"></audio>
+</header>
+<main>
+  <section class="intro">
+    <h1>THE <span>MISSION</span><br>STARTS HERE.</h1>
+    <p>SCROLL · EXPLORE · PARTICIPATE · CONQUER</p>
+  </section>
+  <div id="gallery"></div>
+</main>
+<footer> SANGHAAT 2026 · THINK SMART. COMPETE BOLD. STAY UNITED. </footer>
+<script>
+const gallery=document.getElementById('gallery');
+for(let i=1;i<=19;i++){
+  const wrap=document.createElement('section');wrap.className='page';
+  const img=document.createElement('img');
+  img.src=`pages/page-${String(i).padStart(2,'0')}.jpg`;
+  img.alt=`Sanghaat 2026 PDF page ${i}`;
+  img.loading=i<=2?'eager':'lazy';
+  const label=document.createElement('div');label.className='page-label';label.textContent=`PAGE ${i} OF 19`;
+  wrap.append(img,label);gallery.append(wrap);
+}
+const audio=document.getElementById('music'),btn=document.getElementById('play'),status=document.getElementById('status');
+btn.addEventListener('click',async()=>{
+  if(audio.paused){
+    try{await audio.play();btn.textContent='Ⅱ PAUSE MUSIC';status.textContent='Music is playing · scroll through the pages';}
+    catch(e){status.textContent='Add bella-ciao.mp3 to this folder, then try again.';}
+  }else{audio.pause();btn.textContent='▶ PLAY THE HEIST';status.textContent='Music paused';}
+});
+audio.addEventListener('ended',()=>{btn.textContent='▶ PLAY THE HEIST';status.textContent='Tap to play';});
+</script>
+</body>
+</html>
